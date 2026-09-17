@@ -1,4 +1,7 @@
 from fastapi.testclient import TestClient
+from sqlalchemy import select
+
+from app.models.user import UserSession
 
 payload = {
     "company_name": "Northstar Labs",
@@ -54,3 +57,17 @@ def test_delete_client(client: TestClient):
     assert response.status_code == 200
     assert response.json()["success"] is True
     assert client.get(f"/api/v1/clients/{client_id}").status_code == 404
+
+
+def test_login_creates_user_session(client: TestClient, database_session):
+    credentials = {"email": "admin@example.com", "password": "SecurePass123"}
+    assert client.post("/api/v1/auth/register", json=credentials).status_code == 201
+
+    response = client.post("/api/v1/auth/login", json=credentials)
+
+    assert response.status_code == 200
+    result = response.json()["data"]
+    assert result["access_token"]
+    session = database_session.scalar(select(UserSession).where(UserSession.id == result["session_id"]))
+    assert session is not None
+    assert session.token_hash != result["access_token"]

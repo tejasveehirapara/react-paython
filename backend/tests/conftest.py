@@ -41,3 +41,12 @@ def database():
 def client() -> TestClient:
     with TestClient(app) as test_client:
         yield test_client
+
+
+@pytest.fixture
+def database_session():
+    database = TestingSessionLocal()
+    try:
+        yield database
+    finally:
+        database.close()

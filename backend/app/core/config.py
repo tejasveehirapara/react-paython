@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     environment: str = "development"
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/monobase"
     cors_origins: str = "http://localhost:5173,http://127.0.0.1:5173"
+    session_expire_minutes: int = 1440
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

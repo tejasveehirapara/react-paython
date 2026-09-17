@@ -1,0 +1,6 @@
+import { X } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+import { navigation } from '../constants/navigation'
+import { cn } from '../utils/cn'
+
+export function AppSidebar({ open, onClose }) { return <><button aria-label="Close navigation" onClick={onClose} className={cn('fixed inset-0 z-30 bg-black/30 lg:hidden', open ? 'block' : 'hidden')} /><aside className={cn('fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-[var(--border)] bg-white transition-transform lg:static lg:translate-x-0', open ? 'translate-x-0' : '-translate-x-full')}><div className="flex h-16 items-center justify-between border-b border-[var(--border)] px-5"><span className="text-lg font-bold">Mono<span className="text-zinc-400">base</span></span><button className="rounded p-2 lg:hidden" onClick={onClose} aria-label="Close navigation"><X size={18} /></button></div><nav className="space-y-1 p-3">{navigation.map(({ label, to, icon: Icon }) => <NavLink key={to} to={to} onClick={onClose} className={({ isActive }) => cn('flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium text-zinc-600 hover:bg-zinc-100', isActive && 'bg-black text-white hover:bg-black hover:text-white')}><Icon size={18} />{label}</NavLink>)}</nav></aside></> }

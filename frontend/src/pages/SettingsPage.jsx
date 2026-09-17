@@ -1,0 +1,2 @@
+import { Card } from '../components/ui'
+export function SettingsPage() { return <div><p className="text-sm text-zinc-500">Workspace</p><h1 className="mt-1 text-3xl font-semibold tracking-tight">Settings</h1><Card className="mt-7 p-6"><h2 className="font-semibold">API connection</h2><p className="mt-2 text-sm text-zinc-500">Configure the frontend API base URL through <code className="rounded bg-zinc-100 px-1.5 py-0.5">VITE_API_BASE_URL</code>.</p></Card></div> }
